@@ -3,32 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NFL Player Scraper</title>
-  <style>
-    body { width: 700px; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { border: 1px solid black; padding: 8px; text-align: left; }
-    button {
-      margin-top: 10px; padding: 8px 12px; background-color: #007bff;
-      color: white; border: none; cursor: pointer; font-size: 14px;
-    }
-    button:hover { background-color: #0056b3; }
-  </style>
+  <title>Player Injury Info</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <button id="copyButton">Copy to Clipboard</button>
-  <p id="copyMessage" style="color: green; display: none;">Copied!</p>
+  <!-- Copy All Button -->
+  <button id="copyAllBtn">Copy All Info</button>
+
+  <!-- Table to Display Player Data -->
   <table id="playerTable">
     <thead>
       <tr>
-        <th>Player</th>
+        <th>Team</th>
+        <th>Last Name, First Name</th>
         <th>Headline & Analysis</th>
         <th>Date</th>
-        <th>Team</th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+      <!-- Data rows will be inserted dynamically -->
+    </tbody>
   </table>
+
   <script src="popup.js"></script>
 </body>
 </html>

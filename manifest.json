@@ -1,17 +1,32 @@
 {
   "manifest_version": 3,
-  "name": "NFL Player Scraper",
+  "name": "NFL Player Injury Scraper",
+  "description": "Scrapes player injury information from NBC Sports.",
   "version": "1.0",
-  "description": "Scrapes player data from NBC Sports NFL player news pages",
-  "permissions": ["storage"],
-  "host_permissions": ["https://www.nbcsports.com/fantasy/football/player-news"],
-  "action": {
-    "default_popup": "popup.html"
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["https://www.nbcsports.com/fantasy/football/player-news"],
+      "matches": ["https://www.nbcsports.com/fantasy/football/player-news?f0=INJURY&f1=Positions*"],
       "js": ["content.js"]
     }
-  ]
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  }
 }
