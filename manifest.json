@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "NFL Player Scraper",
+  "version": "1.0",
+  "description": "Scrapes player data from NBC Sports NFL player news pages",
+  "permissions": ["storage"],
+  "host_permissions": ["https://www.nbcsports.com/fantasy/football/player-news"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.nbcsports.com/fantasy/football/player-news"],
+      "js": ["content.js"]
+    }
+  ]
+}
