@@ -1,7 +1,8 @@
-window.addEventListener('load', function() {
+// Function to scrape all player news
+function scrapePlayerNews() {
   let playerData = [];
 
-  let playerPosts = document.querySelectorAll('.PlayerNewsPost'); // Check if this matches the correct selector
+  let playerPosts = document.querySelectorAll('.PlayerNewsPost'); // Select all posts
 
   playerPosts.forEach(post => {
     let lastName = post.querySelector('.PlayerNewsPost-lastName')?.textContent.trim() || "";
@@ -14,8 +15,19 @@ window.addEventListener('load', function() {
     playerData.push({ lastName, firstName, team, headline, analysis, date });
   });
 
-  console.log('Scraped Player Data:', playerData); // Log the data to check if it's being scraped
+  console.log('Updated Player Data:', playerData); // Log updated data
 
-  // Send the data to background.js
-  chrome.runtime.sendMessage({ playerData: playerData });
+  // Save updated data to Chrome storage
+  chrome.storage.local.set({ playerData });
+}
+
+// Initial scrape when the page first loads
+window.addEventListener('load', scrapePlayerNews);
+
+// Detect when new content is loaded (MutationObserver for dynamic elements)
+const observer = new MutationObserver(() => {
+  scrapePlayerNews(); // Re-run scraping when new elements are added
 });
+
+// Start observing the body for changes
+observer.observe(document.body, { childList: true, subtree: true });

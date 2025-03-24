@@ -1,7 +1,8 @@
 chrome.storage.local.get('playerData', function(data) {
   const playerData = data.playerData || [];
   const tableBody = document.querySelector('#playerTable tbody');
-  
+  const copyButton = document.getElementById('copyAllBtn'); // Get the button
+
   // If no data is found, show a message
   if (playerData.length === 0) {
     tableBody.innerHTML = "<tr><td colspan='4'>No data found</td></tr>";
@@ -29,19 +30,32 @@ chrome.storage.local.get('playerData', function(data) {
   });
 
   // Function to copy all player data to clipboard (EXCEL COMPATIBLE)
-  document.getElementById('copyAllBtn').addEventListener('click', function() {
+  copyButton.addEventListener('click', function() {
     let allData = "";
 
     // Loop through player data (Exclude Headers)
     playerData.forEach(player => {
       const formattedDate = formatDate(player.date);
       
-      // Use TAB (`\t`) between columns, and NEW LINE (`\n`) between rows
+      // Use TAB (`\t`) between columns, NEW LINE (`\n`) between rows
       allData += `${player.team}\t${player.lastName}, ${player.firstName}\t${player.headline} - ${player.analysis}\t${formattedDate}\n`;
     });
 
     // Copy to clipboard
     copyToClipboard(allData);
+
+    // Add "Copied!" text with animation
+    copyButton.textContent = "Copied!";
+    copyButton.style.transition = "background 0.3s, color 0.3s"; // Smooth effect
+    copyButton.style.background = "#4CAF50"; // Green success color
+    copyButton.style.color = "#fff";
+
+    // Reset after 2 seconds
+    setTimeout(() => {
+      copyButton.textContent = "Copy All Info";
+      copyButton.style.background = ""; // Revert to default
+      copyButton.style.color = "";
+    }, 2000);
   });
 
   // Function to copy text to clipboard
